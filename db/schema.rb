@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_09_160738) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -190,6 +190,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_160738) do
     t.string "data"
   end
 
+  create_table "engine_oil_changes", force: :cascade do |t|
+    t.bigint "oil_viscosity_id"
+    t.bigint "oil_filter_id"
+    t.bigint "oil_quantity_id"
+    t.bigint "service_record_id"
+    t.index ["oil_filter_id"], name: "index_engine_oil_changes_on_oil_filter_id"
+    t.index ["oil_quantity_id"], name: "index_engine_oil_changes_on_oil_quantity_id"
+    t.index ["oil_viscosity_id"], name: "index_engine_oil_changes_on_oil_viscosity_id"
+    t.index ["service_record_id"], name: "index_engine_oil_changes_on_service_record_id"
+  end
+
   create_table "engine_oil_filters", force: :cascade do |t|
     t.string "data"
   end
@@ -264,17 +275,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_160738) do
     t.text "notes"
     t.bigint "service_record_id"
     t.index ["service_record_id"], name: "index_misc_services_on_service_record_id"
-  end
-
-  create_table "oil_changes", force: :cascade do |t|
-    t.bigint "oil_viscosity_id"
-    t.bigint "oil_filter_id"
-    t.bigint "oil_quantity_id"
-    t.bigint "service_record_id"
-    t.index ["oil_filter_id"], name: "index_oil_changes_on_oil_filter_id"
-    t.index ["oil_quantity_id"], name: "index_oil_changes_on_oil_quantity_id"
-    t.index ["oil_viscosity_id"], name: "index_oil_changes_on_oil_viscosity_id"
-    t.index ["service_record_id"], name: "index_oil_changes_on_service_record_id"
   end
 
   create_table "plugs_coils_services", force: :cascade do |t|
@@ -516,6 +516,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_160738) do
   add_foreign_key "electrical_timing_services", "vvt_solenoids", column: "vvt_solenoids_id"
   add_foreign_key "engine_air_filter_services", "engine_air_filters"
   add_foreign_key "engine_air_filter_services", "service_records"
+  add_foreign_key "engine_oil_changes", "engine_oil_filters", column: "oil_filter_id"
+  add_foreign_key "engine_oil_changes", "engine_oil_quantities", column: "oil_quantity_id"
+  add_foreign_key "engine_oil_changes", "engine_oil_viscosities", column: "oil_viscosity_id"
+  add_foreign_key "engine_oil_changes", "service_records"
   add_foreign_key "exhaust_services", "service_records"
   add_foreign_key "fuel_pump_services", "service_records"
   add_foreign_key "light_services", "headlights"
@@ -526,10 +530,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_160738) do
   add_foreign_key "maf_map_sensor_services", "maf_map_sensors", column: "maf_map_sensors_id"
   add_foreign_key "maf_map_sensor_services", "service_records"
   add_foreign_key "misc_services", "service_records"
-  add_foreign_key "oil_changes", "engine_oil_filters", column: "oil_filter_id"
-  add_foreign_key "oil_changes", "engine_oil_quantities", column: "oil_quantity_id"
-  add_foreign_key "oil_changes", "engine_oil_viscosities", column: "oil_viscosity_id"
-  add_foreign_key "oil_changes", "service_records"
   add_foreign_key "plugs_coils_services", "coil_packs", column: "coil_packs_id"
   add_foreign_key "plugs_coils_services", "service_records"
   add_foreign_key "plugs_coils_services", "spark_plugs", column: "spark_plugs_id"

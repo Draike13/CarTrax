@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  oil_viscosity: one
+  oil_filter: one
+  oil_quantity: one
+  service_record: one
+
+two:
+  oil_viscosity: two
+  oil_filter: two
+  oil_quantity: two
+  service_record: two

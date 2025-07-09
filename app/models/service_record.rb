@@ -1,4 +1,27 @@
 class ServiceRecord < ApplicationRecord
-  belongs_to :user
   belongs_to :car
+
+  has_one :engine_oil_change, class_name: "Jobs::EngineOilChange"
+  has_one :brake_change, class_name: "Jobs::BrakeChange"
+  has_one :tire_service, class_name: "Jobs::TireService"
+  has_one :transmission_service, class_name: "Jobs::TransmissionService"
+  has_one :coolant_service, class_name: "Jobs::CoolantService"
+  has_one :engine_air_filter_service, class_name: "Jobs::EngineAirFilterService"
+  has_one :cabin_air_filter_service, class_name: "Jobs::CabinAirFilterService"
+  has_one :wiper_blade_service, class_name: "Jobs::WiperBladeService"
+  has_one :light_service, class_name: "Jobs::LightService"
+  has_one :battery_service, class_name: "Jobs::BatteryService"
+  has_one :alternator_service, class_name: "Jobs::AlternatorService"
+  has_one :starter_service, class_name: "Jobs::StarterService"
+  has_one :fuel_pump_service, class_name: "Jobs::FuelPumpService"
+  has_one :suspension_service, class_name: "Jobs::SuspensionService"
+  has_one :plugs_coils_service, class_name: "Jobs::PlugsCoilsService"
+  has_one :belt_service, class_name: "Jobs::BeltService"
+  has_one :timing_service, class_name: "Jobs::TimingService"
+  has_one :exhaust_service, class_name: "Jobs::ExhaustService"
+  has_one :electrical_timing_service, class_name: "Jobs::ElectricalTimingService"
+  has_one :map_maf_sensor_service, class_name: "Jobs::MapMafSensorService"
+  has_one :thermostat_service, class_name: "Jobs::ThermostatService"
+  has_one :throttle_service, class_name: "Jobs::ThrottleService"
+  has_one :misc_service, class_name: "Jobs::MiscService"
 end
