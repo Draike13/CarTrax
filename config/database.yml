@@ -1,0 +1,37 @@
+# CarTrax Database Configuration
+# This file is used to configure the database connection for the CarTrax application.
+# It supports multiple environments: development, test, and production.
+# The configuration uses PostgreSQL as the database adapter and allows for environment-specific settings.
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # Use the database name from the environment variable, or default to 'cartrax'
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USERNAME", "cartrax") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "Cartrax123") %>
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("DB_PORT", 5432) %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: cartrax_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: cartrax_test
+
+
+# Store production database in the storage/ directory, which by default
+# is mounted as a persistent Docker volume in config/deploy.yml.
+production:
+  <<: *default
+  database: cartrax_production
+  # Ensure the production database is not stored in the same place as development/test
+  # This is important for security and data integrity.
+  database: <%= ENV.fetch("DATABASE_URL", "cartrax_production") %>
+  # Uncomment the following line if you want to use SSL for production connections
+  # sslmode: require

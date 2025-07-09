@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  make: MyText
+  model: MyText
+  year: 1
+  trim: MyText
+  color: MyText
+  mileage: 1
+  notes: MyText
+
+two:
+  make: MyText
+  model: MyText
+  year: 1
+  trim: MyText
+  color: MyText
+  mileage: 1
+  notes: MyText

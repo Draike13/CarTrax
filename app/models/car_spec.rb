@@ -1,0 +1,25 @@
+class CarSpec < ApplicationRecord
+  belongs_to :car
+
+  belongs_to :engine_oil_viscosity, class_name: "Parts::EngineOilViscosity"
+  belongs_to :engine_oil_quantity, class_name: "Parts::EngineOilQuantity"
+  belongs_to :engine_oil_filter, class_name: "Parts::EngineOilFilter"
+  belongs_to :brake_fluid_type, class_name: "Parts::BrakeFluidType"
+  belongs_to :brake_pads, class_name: "Parts::BrakePads"
+  belongs_to :brake_rotors, class_name: "Parts::BrakeRotors"
+  belongs_to :tire_size, class_name: "Parts::TireSize"
+  belongs_to :tire_brand, class_name: "Parts::TireBrand"
+  belongs_to :transmission_fluid_type, class_name: "Parts::TransmissionFluidType"
+  belongs_to :transmission_fluid_quantity, class_name: "Parts::TransmissionFluidQuantity"
+  belongs_to :coolant_type, class_name: "Parts::CoolantType"
+  belongs_to :engine_air_filter, class_name: "Parts::EngineAirFilter"
+  belongs_to :cabin_air_filter, class_name: "Parts::CabinAirFilter"
+  belongs_to :wiper_blade_sizes, class_name: "Parts::WiperBladeSizes"
+  belongs_to :headlights, class_name: "Parts::Headlights"
+  belongs_to :taillights, class_name: "Parts::Taillights"
+  belongs_to :turn_signal_lights, class_name: "Parts::TurnSignalLights"
+  belongs_to :license_plate_light, class_name: "Parts::LicensePlateLight"
+  belongs_to :battery, class_name: "Parts::Battery"
+  belongs_to :serpentine_belt, class_name: "Parts::SerpentineBelt"
+  belongs_to :thermostat, class_name: "Parts::Thermostat"
+end
