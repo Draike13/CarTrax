@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_09_184706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -231,6 +231,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
   create_table "fuel_pump_services", force: :cascade do |t|
     t.bigint "service_record_id"
     t.index ["service_record_id"], name: "index_fuel_pump_services_on_service_record_id"
+  end
+
+  create_table "head_gasket_replacements", force: :cascade do |t|
+    t.bigint "head_gasket_id"
+    t.boolean "replaced_bank_one", default: false
+    t.boolean "replaced_bank_two", default: false
+    t.text "notes"
+    t.bigint "service_record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["head_gasket_id"], name: "index_head_gasket_replacements_on_head_gasket_id"
+    t.index ["service_record_id"], name: "index_head_gasket_replacements_on_service_record_id"
+  end
+
+  create_table "head_gaskets", force: :cascade do |t|
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "headlights", force: :cascade do |t|
@@ -460,6 +478,24 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "valve_cover_gasket_changes", force: :cascade do |t|
+    t.bigint "valve_cover_gasket_id"
+    t.boolean "replaced_bank_one", default: false
+    t.boolean "replaced_bank_two", default: false
+    t.text "notes"
+    t.bigint "service_record_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_record_id"], name: "index_valve_cover_gasket_changes_on_service_record_id"
+    t.index ["valve_cover_gasket_id"], name: "index_valve_cover_gasket_changes_on_valve_cover_gasket_id"
+  end
+
+  create_table "valve_cover_gaskets", force: :cascade do |t|
+    t.string "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "vvt_solenoids", force: :cascade do |t|
     t.string "data"
   end
@@ -522,6 +558,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
   add_foreign_key "engine_oil_changes", "service_records"
   add_foreign_key "exhaust_services", "service_records"
   add_foreign_key "fuel_pump_services", "service_records"
+  add_foreign_key "head_gasket_replacements", "head_gaskets"
+  add_foreign_key "head_gasket_replacements", "service_records"
   add_foreign_key "light_services", "headlights"
   add_foreign_key "light_services", "license_plate_lights"
   add_foreign_key "light_services", "service_records"
@@ -555,6 +593,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_173726) do
   add_foreign_key "transmission_services", "transmission_fluid_types"
   add_foreign_key "user_cars", "cars"
   add_foreign_key "user_cars", "users"
+  add_foreign_key "valve_cover_gasket_changes", "service_records"
+  add_foreign_key "valve_cover_gasket_changes", "valve_cover_gaskets"
   add_foreign_key "wiper_blade_services", "service_records"
   add_foreign_key "wiper_blade_services", "wiper_blade_sizes", column: "wiper_blade_sizes_id"
 end

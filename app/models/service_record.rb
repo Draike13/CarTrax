@@ -24,4 +24,6 @@ class ServiceRecord < ApplicationRecord
   has_one :thermostat_service, class_name: "Jobs::ThermostatService"
   has_one :throttle_service, class_name: "Jobs::ThrottleService"
   has_one :misc_service, class_name: "Jobs::MiscService"
+  has_one :valve_cover_gasket_change, class_name: "Jobs::ValveCoverGasketChange"
+  has_one :head_gasket_replacement, class_name: "Jobs::HeadGasketReplacement"
 end
