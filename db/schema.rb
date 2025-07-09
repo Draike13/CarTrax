@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_09_231458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -86,8 +86,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
     t.bigint "engine_oil_quantity_id"
     t.bigint "engine_oil_filter_id"
     t.bigint "brake_fluid_type_id"
-    t.bigint "brake_pads_id"
-    t.bigint "brake_rotors_id"
+    t.bigint "brake_pad_id"
+    t.bigint "brake_rotor_id"
     t.bigint "tire_size_id"
     t.bigint "tire_brand_id"
     t.bigint "transmission_fluid_type_id"
@@ -95,10 +95,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
     t.bigint "coolant_type_id"
     t.bigint "engine_air_filter_id"
     t.bigint "cabin_air_filter_id"
-    t.bigint "wiper_blade_sizes_id"
-    t.bigint "headlights_id"
-    t.bigint "taillights_id"
-    t.bigint "turn_signal_lights_id"
+    t.bigint "wiper_blade_size_id"
+    t.bigint "headlight_id"
+    t.bigint "taillight_id"
+    t.bigint "turn_signal_light_id"
     t.bigint "license_plate_light_id"
     t.bigint "battery_id"
     t.bigint "serpentine_belt_id"
@@ -107,8 +107,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
     t.datetime "updated_at", null: false
     t.index ["battery_id"], name: "index_car_specs_on_battery_id"
     t.index ["brake_fluid_type_id"], name: "index_car_specs_on_brake_fluid_type_id"
-    t.index ["brake_pads_id"], name: "index_car_specs_on_brake_pads_id"
-    t.index ["brake_rotors_id"], name: "index_car_specs_on_brake_rotors_id"
+    t.index ["brake_pad_id"], name: "index_car_specs_on_brake_pad_id"
+    t.index ["brake_rotor_id"], name: "index_car_specs_on_brake_rotor_id"
     t.index ["cabin_air_filter_id"], name: "index_car_specs_on_cabin_air_filter_id"
     t.index ["car_id"], name: "index_car_specs_on_car_id", unique: true
     t.index ["coolant_type_id"], name: "index_car_specs_on_coolant_type_id"
@@ -116,17 +116,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
     t.index ["engine_oil_filter_id"], name: "index_car_specs_on_engine_oil_filter_id"
     t.index ["engine_oil_quantity_id"], name: "index_car_specs_on_engine_oil_quantity_id"
     t.index ["engine_oil_viscosity_id"], name: "index_car_specs_on_engine_oil_viscosity_id"
-    t.index ["headlights_id"], name: "index_car_specs_on_headlights_id"
+    t.index ["headlight_id"], name: "index_car_specs_on_headlight_id"
     t.index ["license_plate_light_id"], name: "index_car_specs_on_license_plate_light_id"
     t.index ["serpentine_belt_id"], name: "index_car_specs_on_serpentine_belt_id"
-    t.index ["taillights_id"], name: "index_car_specs_on_taillights_id"
+    t.index ["taillight_id"], name: "index_car_specs_on_taillight_id"
     t.index ["thermostat_id"], name: "index_car_specs_on_thermostat_id"
     t.index ["tire_brand_id"], name: "index_car_specs_on_tire_brand_id"
     t.index ["tire_size_id"], name: "index_car_specs_on_tire_size_id"
     t.index ["transmission_fluid_quantity_id"], name: "index_car_specs_on_transmission_fluid_quantity_id"
     t.index ["transmission_fluid_type_id"], name: "index_car_specs_on_transmission_fluid_type_id"
-    t.index ["turn_signal_lights_id"], name: "index_car_specs_on_turn_signal_lights_id"
-    t.index ["wiper_blade_sizes_id"], name: "index_car_specs_on_wiper_blade_sizes_id"
+    t.index ["turn_signal_light_id"], name: "index_car_specs_on_turn_signal_light_id"
+    t.index ["wiper_blade_size_id"], name: "index_car_specs_on_wiper_blade_size_id"
   end
 
   create_table "cars", force: :cascade do |t|
@@ -315,7 +315,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
   end
 
   create_table "service_records", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "car_id", null: false
     t.date "service_date"
     t.integer "mileage"
@@ -323,7 +322,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["car_id"], name: "index_service_records_on_car_id"
-    t.index ["user_id"], name: "index_service_records_on_user_id"
   end
 
   create_table "shocks_struts", force: :cascade do |t|
@@ -526,8 +524,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
   add_foreign_key "cabin_air_filter_services", "service_records"
   add_foreign_key "car_specs", "batteries"
   add_foreign_key "car_specs", "brake_fluid_types"
-  add_foreign_key "car_specs", "brake_pads", column: "brake_pads_id"
-  add_foreign_key "car_specs", "brake_rotors", column: "brake_rotors_id"
+  add_foreign_key "car_specs", "brake_pads"
+  add_foreign_key "car_specs", "brake_rotors"
   add_foreign_key "car_specs", "cabin_air_filters"
   add_foreign_key "car_specs", "cars"
   add_foreign_key "car_specs", "coolant_types"
@@ -535,17 +533,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
   add_foreign_key "car_specs", "engine_oil_filters"
   add_foreign_key "car_specs", "engine_oil_quantities"
   add_foreign_key "car_specs", "engine_oil_viscosities"
-  add_foreign_key "car_specs", "headlights", column: "headlights_id"
+  add_foreign_key "car_specs", "headlights"
   add_foreign_key "car_specs", "license_plate_lights"
   add_foreign_key "car_specs", "serpentine_belts"
-  add_foreign_key "car_specs", "taillights", column: "taillights_id"
+  add_foreign_key "car_specs", "taillights"
   add_foreign_key "car_specs", "thermostats"
   add_foreign_key "car_specs", "tire_brands"
   add_foreign_key "car_specs", "tire_sizes"
   add_foreign_key "car_specs", "transmission_fluid_quantities"
   add_foreign_key "car_specs", "transmission_fluid_types"
-  add_foreign_key "car_specs", "turn_signal_lights", column: "turn_signal_lights_id"
-  add_foreign_key "car_specs", "wiper_blade_sizes", column: "wiper_blade_sizes_id"
+  add_foreign_key "car_specs", "turn_signal_lights"
+  add_foreign_key "car_specs", "wiper_blade_sizes"
   add_foreign_key "coolant_services", "coolant_types"
   add_foreign_key "coolant_services", "service_records"
   add_foreign_key "electrical_timing_services", "camshaft_position_sensors", column: "camshaft_position_sensors_id"
@@ -574,7 +572,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_09_185827) do
   add_foreign_key "plugs_coils_services", "service_records"
   add_foreign_key "plugs_coils_services", "spark_plugs", column: "spark_plugs_id"
   add_foreign_key "service_records", "cars"
-  add_foreign_key "service_records", "users"
   add_foreign_key "starter_services", "service_records"
   add_foreign_key "suspension_services", "service_records"
   add_foreign_key "suspension_services", "shocks_struts", column: "shocks_struts_id"

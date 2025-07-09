@@ -1,4 +1,5 @@
 class Jobs::LightService < ApplicationRecord
+  self.table_name = "light_services"
   belongs_to :service_record
   belongs_to :headlight, class_name: "Parts::Headlight"
   belongs_to :taillight, class_name: "Parts::Taillight"

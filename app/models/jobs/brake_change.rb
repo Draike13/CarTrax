@@ -1,4 +1,5 @@
 class Jobs::BrakeChange < ApplicationRecord
+  self.table_name = "brake_changes"
   belongs_to :service_record
   belongs_to :brake_rotor, class_name: "Parts::BrakeRotor"
   belongs_to :brake_fluid, class_name: "Parts::BrakeFluid"

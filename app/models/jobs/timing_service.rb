@@ -1,4 +1,5 @@
 class Jobs::TimingService < ApplicationRecord
+  self.table_name = "timing_services"
   belongs_to :service_record
   belongs_to :timing_chain, class_name: "Parts::TimingChain"
   belongs_to :timing_sprocket, class_name: "Parts::TimingSprocket"

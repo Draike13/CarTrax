@@ -1,5 +1,5 @@
-# app/models/jobs/engine_oil_change.rb
 class Jobs::EngineOilChange < ApplicationRecord
+  self.table_name = "engine_oil_changes"
   belongs_to :service_record
   belongs_to :oil_viscosity, class_name: "Parts::EngineOilViscosity"
   belongs_to :oil_filter, class_name: "Parts::EngineOilFilter"
