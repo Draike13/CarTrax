@@ -137,9 +137,3 @@ electrical_timing_service = Jobs::ElectricalTimingService.create!(
   crankshaft_position_sensor: crankshaft_sensor,
   crankshaft_sensor_replaced: false
 )
-
-# === JOB ASSIGNMENTS ===
-# JobAssignment.create!(service_record: sky_service, job: tire_service)
-# JobAssignment.create!(service_record: sky_service, job: thermostat_service)
-# JobAssignment.create!(service_record: g37_service, job: timing_service)
-# JobAssignment.create!(service_record: g37_service, job: electrical_timing_service)
