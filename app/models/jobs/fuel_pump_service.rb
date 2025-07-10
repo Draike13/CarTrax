@@ -1,4 +1,5 @@
 class Jobs::FuelPumpService < ApplicationRecord
   self.table_name = "fuel_pump_services"
-  belongs_to :service_record
+  has_one :job_assignment, as: :job
+  has_one :service_record, through: :job_assignment
 end

@@ -94,10 +94,52 @@ sky_service = ServiceRecord.create!(car: sky, service_date: Date.today - 30, mil
 g37_service = ServiceRecord.create!(car: g37, service_date: Date.today - 10, mileage: 209_000, notes: "Engine diagnostics")
 
 # === JOBS ===
-Jobs::TireService.create!(service_record: sky_service, tire_size: tire_size, tire_brand: tire_brand, tires_rotated: true, front_tires_replaced: false, rear_tires_replaced: true, tire_pressure_sensors_replaced: false)
+tire_service = Jobs::TireService.create!(
+  service_record: sky_service,
+  tire_size: tire_size,
+  tire_brand: tire_brand,
+  tires_rotated: true,
+  front_tires_replaced: false,
+  rear_tires_replaced: true,
+  tire_pressure_sensors_replaced: false
+)
 
-Jobs::ThermostatService.create!(service_record: sky_service, thermostat: thermostat)
+thermostat_service = Jobs::ThermostatService.create!(
+  service_record: sky_service,
+  thermostat: thermostat
+)
 
-Jobs::TimingService.create!(service_record: g37_service, timing_chain: timing_chain, timing_chain_replaced: true, timing_chain_replaced_all: true, timing_chain_notes: "Complete kit", timing_sprockets: timing_sprocket, intake_sprocket_replaced: true, intake_sprocket_notes: "Worn teeth", exhaust_sprocket_replaced: false, exhaust_sprocket_notes: "Still OK", timing_tensioners: timing_tensioner, tensioners_replaced: true, tensioners_replaced_all: true, tensioner_notes: "All new", crankshaft_sprocket: crankshaft_sprocket, crankshaft_sprocket_replaced: true)
+timing_service = Jobs::TimingService.create!(
+  service_record: g37_service,
+  timing_chain: timing_chain,
+  timing_chain_replaced: true,
+  timing_chain_replaced_all: true,
+  timing_chain_notes: "Complete kit",
+  timing_sprocket: timing_sprocket,
+  intake_sprocket_replaced: true,
+  intake_sprocket_notes: "Worn teeth",
+  exhaust_sprocket_replaced: false,
+  exhaust_sprocket_notes: "Still OK",
+  timing_tensioner: timing_tensioner,
+  tensioners_replaced: true,
+  tensioners_replaced_all: true,
+  tensioner_notes: "All new",
+  crankshaft_sprocket: crankshaft_sprocket,
+  crankshaft_sprocket_replaced: true
+)
 
-Jobs::ElectricalTimingService.create!(service_record: g37_service, vvt_solenoids: vvt_solenoid, vvt_solenoids_replaced: true, camshaft_position_sensors: camshaft_sensor, camshaft_sensors_replaced: true, crankshaft_position_sensor: crankshaft_sensor, crankshaft_sensor_replaced: false)
+electrical_timing_service = Jobs::ElectricalTimingService.create!(
+  service_record: g37_service,
+  vvt_solenoid: vvt_solenoid,
+  vvt_solenoids_replaced: true,
+  camshaft_position_sensor: camshaft_sensor,
+  camshaft_sensors_replaced: true,
+  crankshaft_position_sensor: crankshaft_sensor,
+  crankshaft_sensor_replaced: false
+)
+
+# === JOB ASSIGNMENTS ===
+# JobAssignment.create!(service_record: sky_service, job: tire_service)
+# JobAssignment.create!(service_record: sky_service, job: thermostat_service)
+# JobAssignment.create!(service_record: g37_service, job: timing_service)
+# JobAssignment.create!(service_record: g37_service, job: electrical_timing_service)

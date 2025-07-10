@@ -1,5 +1,6 @@
 class Jobs::ThermostatService < ApplicationRecord
   self.table_name = "thermostat_services"
-  belongs_to :service_record
+  has_one :job_assignment, as: :job
+  has_one :service_record, through: :job_assignment
   belongs_to :thermostat, class_name: "Parts::Thermostat"
 end
