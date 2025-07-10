@@ -16,9 +16,23 @@ class Api::CarsController < ApplicationController
   def service_records
     car = Car.find(params[:car_id])
     records = car.service_records.includes(:job_assignments)
+    if params[:with] == "details"
+      render json: {
+        car: car,
+      service_records: records.as_json(
+        include: {
+          job_assignments: {
+            include: :job,
+            methods: :job_type
+          }
+        }
+      )
+      }
+    else
     render json: {
       car: car,
       service_records: records.as_json(include: :job_assignments)
     }
+    end
   end
 end
