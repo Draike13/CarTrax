@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_11_214247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -78,6 +78,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
 
   create_table "camshaft_position_sensors", force: :cascade do |t|
     t.string "data"
+  end
+
+  create_table "car_ownerships", force: :cascade do |t|
+    t.bigint "car_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_car_ownerships_on_car_id"
+    t.index ["customer_id"], name: "index_car_ownerships_on_customer_id"
   end
 
   create_table "car_specs", force: :cascade do |t|
@@ -165,6 +174,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
 
   create_table "crankshaft_sprockets", force: :cascade do |t|
     t.string "data"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone"
+    t.string "email"
+    t.date "birthday"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "electrical_timing_services", force: :cascade do |t|
@@ -466,21 +486,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
     t.string "data"
   end
 
-  create_table "user_cars", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "car_id", null: false
-    t.index ["car_id"], name: "index_user_cars_on_car_id"
-    t.index ["user_id"], name: "index_user_cars_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "f_name"
-    t.string "l_name"
+    t.string "first_name"
+    t.string "last_name"
     t.string "username"
     t.string "email"
     t.string "password_digest"
     t.string "firebase_uid"
-    t.date "birthday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -532,6 +544,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
   add_foreign_key "brake_changes", "service_records"
   add_foreign_key "cabin_air_filter_services", "cabin_air_filters"
   add_foreign_key "cabin_air_filter_services", "service_records"
+  add_foreign_key "car_ownerships", "cars"
+  add_foreign_key "car_ownerships", "customers"
   add_foreign_key "car_specs", "batteries"
   add_foreign_key "car_specs", "brake_fluid_types"
   add_foreign_key "car_specs", "brake_pads"
@@ -601,8 +615,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_002948) do
   add_foreign_key "transmission_services", "service_records"
   add_foreign_key "transmission_services", "transmission_fluid_quantities"
   add_foreign_key "transmission_services", "transmission_fluid_types"
-  add_foreign_key "user_cars", "cars"
-  add_foreign_key "user_cars", "users"
   add_foreign_key "valve_cover_gasket_changes", "service_records"
   add_foreign_key "valve_cover_gasket_changes", "valve_cover_gaskets"
   add_foreign_key "wiper_blade_services", "service_records"

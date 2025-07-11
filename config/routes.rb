@@ -12,5 +12,7 @@ Rails.application.routes.draw do
     resources :cars, only: [ :index, :show ] do
       get "service_records", to: "cars#service_records"
     end
+
+    resources :customers, only: [ :index, :show ]
   end
 end

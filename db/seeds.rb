@@ -7,6 +7,25 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+# === CUSTOMERS ===
+trevor = Customer.create!(
+  first_name: "Trevor",
+  last_name: "Biri",
+  phone: "573-555-2190",
+  email: "trevor.biri@example.com",
+  birthday: Date.new(1991, 2, 15),
+  address: "123 Oak Street, Jackson, MO"
+)
+
+jessie = Customer.create!(
+  first_name: "Jessie",
+  last_name: "Evans",
+  phone: "573-555-8899",
+  email: "jessie.evans@example.com",
+  birthday: Date.new(1996, 8, 8),
+  address: "456 Maple Avenue, Cape Girardeau, MO"
+)
+
 
 # === PARTS ===
 battery = Parts::Battery.create!(data: "DieHard Gold")
@@ -41,6 +60,11 @@ crankshaft_sensor = Parts::CrankshaftPositionSensor.create!(data: "NGK EC0329")
 # === CARS ===
 sky = Car.create!(make: "Saturn", model: "Sky", year: 2007, trim: "Base", color: "Black", mileage: 120_000, vin: "1G8MB35B87Y000001")
 g37 = Car.create!(make: "Infiniti", model: "G37x", year: 2009, trim: "Sedan", color: "Black", mileage: 210_000, vin: "JNKBV61F69M000002")
+
+# === CUSTOMER-CAR RELATIONSHIPS ===
+CarOwnership.create!(customer: trevor, car: sky)
+CarOwnership.create!(customer: trevor, car: g37)
+CarOwnership.create!(customer: jessie, car: g37)
 
 # === CAR SPECS ===
 CarSpec.create!(car: sky,
