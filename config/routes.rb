@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     end
 
     resources :customers, only: [ :index, :show ]
+    post "auth/login", to: "auth#login"
   end
 end

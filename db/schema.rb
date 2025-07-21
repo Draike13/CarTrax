@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_11_214247) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_171745) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -435,7 +435,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_214247) do
     t.index ["timing_sprocket_id"], name: "index_timing_services_on_timing_sprocket_id"
     t.index ["timing_tensioner_id"], name: "index_timing_services_on_timing_tensioner_id"
   end
-
   create_table "timing_sprockets", force: :cascade do |t|
     t.string "data"
   end
@@ -495,6 +494,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_11_214247) do
     t.string "firebase_uid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_role", default: "customer"
+    t.string "phone"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["firebase_uid"], name: "index_users_on_firebase_uid", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true

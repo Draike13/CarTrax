@@ -8,6 +8,8 @@ gem "rails", "~> 8.0.2"
 gem "pg", "~> 1.4"
 # Use mysql as the database for Active Record
 # gem "mysql2", "~> 0.5"
+gem "firebase"
+gem "firebase_id_token"
 
 #Use dotenv to manage environment variables
 gem "dotenv-rails", groups: [:development, :test]
