@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_171745) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_24_201248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -532,6 +532,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_171745) do
 
   create_table "wiper_blade_sizes", force: :cascade do |t|
     t.string "data"
+  end
+
+  create_table "worker_requests", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone"
+    t.boolean "admin_verified", default: false
+    t.boolean "worker_verified", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_worker_requests_on_email", unique: true
   end
 
   add_foreign_key "alternator_services", "service_records"

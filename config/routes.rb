@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       get "service_records", to: "cars#service_records"
     end
 
+    resources :users, only: [ :show, :update ] do
+      get "users", to: "users#index"
+    end
+    resources :worker_requests, only: [ :index, :create, :update ]
     resources :customers, only: [ :index, :show ]
     post "auth/login", to: "auth#login"
   end
