@@ -29,5 +29,5 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   <<: *default
-  database: <%= ENV.fetch("DATABASE_URL", "cartrax_production") %>
+  database: <%= ENV.fetch("DATABASE_URL") %>
 
