@@ -29,9 +29,5 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   <<: *default
-  database: cartrax_production
-  # Ensure the production database is not stored in the same place as development/test
-  # This is important for security and data integrity.
   database: <%= ENV.fetch("DATABASE_URL", "cartrax_production") %>
-  # Uncomment the following line if you want to use SSL for production connections
-  # sslmode: require
+
