@@ -44,9 +44,10 @@ class Api::CarsController < ApplicationController
       render json: { errors: car.errors.full_messages }, status: :unprocessable_entity
     end
 
+    private
     def car_params
       params.require(:car).permit(
-        :make, :model, :year, :trim, :color, :mileage, :notes
+      :make, :model, :year, :trim, :color, :mileage, :notes
       )
     end
   end
