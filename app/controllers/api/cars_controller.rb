@@ -46,7 +46,7 @@ class Api::CarsController < ApplicationController
   end
 
   def update
-    car = Car.find(params[:id]
+    car = Car.find(params[:id])
     if car.update(car_params)
       render json: car, status: :ok
     else
