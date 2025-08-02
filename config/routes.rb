@@ -9,14 +9,14 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace :api do
-    resources :cars, only: [ :index, :show, :create, :destroy ] do
+    resources :cars, only: [ :index, :show, :create, :update, :destroy ] do
       get "service_records", to: "cars#service_records"
     end
 
     resources :users, only: [ :show, :update ] do
       get "users", to: "users#index"
     end
-    resources :worker_requests, only: [ :index, :create, :update ]
+    resources :worker_requests, only: [ :index, :create, :update, :destroy ]
     resources :customers, only: [ :index, :show ]
     post "auth/login", to: "auth#login"
   end
