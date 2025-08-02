@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace :api do
-    resources :cars, only: [ :index, :show, :create ] do
+    resources :cars, only: [ :index, :show, :create, :destroy ] do
       get "service_records", to: "cars#service_records"
     end
 
