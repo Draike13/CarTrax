@@ -9,9 +9,10 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   namespace :api do
+    get "cars/vin/:vin", to: "cars#search_by_vin"
+
     resources :cars, only: [ :index, :show, :create, :update, :destroy ] do
       get "service_records", to: "cars#service_records"
-      get "cars/vin/:vin", to: "cars#search_by_vin"
     end
 
     resources :users, only: [ :show, :update ] do
