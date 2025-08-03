@@ -13,6 +13,17 @@ class Api::CarsController < ApplicationController
     end
   end
 
+  def search_by_vin
+    vin = params[:vin].strip.upcase
+    car = Car.where("UPPER(vin) = ?", vin)
+
+    if car.exists?
+      render json: car, status: :ok
+    else
+      render json: [], status: :ok
+    end
+  end
+
   def service_records
     car = Car.find(params[:car_id])
     records = car.service_records.includes(:job_assignments)
@@ -62,6 +73,8 @@ class Api::CarsController < ApplicationController
       render json: { errors: car.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+
 
   private
 
