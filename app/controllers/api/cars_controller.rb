@@ -15,12 +15,12 @@ class Api::CarsController < ApplicationController
 
   def search_by_vin
     vin = params[:vin].strip.upcase
-    car = Car.where("UPPER(vin) = ?", vin)
+    car = Car.find_by("UPPER(vin) = ?", vin)
 
-    if car.exists?
-      render json: [ car ], status: :ok
+    if car
+      render json: car, status: :ok
     else
-      render json: [], status: :ok
+      render json: {}, status: :ok
     end
   end
 
