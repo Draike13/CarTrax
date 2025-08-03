@@ -18,7 +18,7 @@ class Api::CarsController < ApplicationController
     car = Car.where("UPPER(vin) = ?", vin)
 
     if car.exists?
-      render json: car, status: :ok
+      render json: [ car ], status: :ok
     else
       render json: [], status: :ok
     end
