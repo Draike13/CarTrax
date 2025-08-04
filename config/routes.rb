@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
     resources :worker_requests, only: [ :index, :create, :update, :destroy ]
     resources :customers, only: [ :index, :show ]
+    resources :parts, only: [ :index, :create, :update, :destroy ]
     post "auth/login", to: "auth#login"
   end
 end
