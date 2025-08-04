@@ -24,6 +24,19 @@ class Api::CarsController < ApplicationController
     end
   end
 
+  def filter
+    year = params[:year].presence
+    make = params[:make].presence
+    model = params[:model].presence
+
+    cars = Car.all
+    cars = cars.where(year: year) if year
+    cars = cars.where("LOWER(make) = ?", make.downcase) if make
+    cars = cars.where("LOWER(model) = ?", model.downcase) if model
+
+    render json: cars, status: :ok
+  end
+
   def service_records
     car = Car.find(params[:car_id])
     records = car.service_records.includes(:job_assignments)
