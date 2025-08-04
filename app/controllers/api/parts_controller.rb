@@ -6,9 +6,9 @@ class Api::PartsController < ApplicationController
   end
 
   def create
-    parts = @model.new(part_params)
+    part = @model.new(part_params)
     if part.save
-      render json: parts, status: :created
+      render json: part, status: :created
     else
       render json: { errors: part.errors.full_messages }, status: :unprocessable_entity
     end
