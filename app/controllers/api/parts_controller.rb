@@ -2,7 +2,7 @@ class Api::PartsController < ApplicationController
   before_action :set_part_model
 
   def index
-    render json: @model.all
+    render json: @model.all.map { |p| p.as_json.merge(type: params[:type]) }
   end
 
   def create
