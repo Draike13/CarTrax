@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     get "cars/vin/:vin", to: "cars#search_by_vin"
     get "cars/filter", to: "cars#filter"
+    put "cars/:id/update_specs", to: "cars#update_specs"
+    put "cars/:id/clear_specs", to: "cars#clear_specs"
+
 
     resources :cars, only: [ :index, :show, :create, :update, :destroy ] do
     get "service_records", to: "cars#service_records"

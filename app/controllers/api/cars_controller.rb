@@ -60,6 +60,8 @@ class Api::CarsController < ApplicationController
     end
   end
 
+
+
   def create
     car = Car.new(car_params)
     if car.save
@@ -87,6 +89,36 @@ class Api::CarsController < ApplicationController
     end
   end
 
+def update_specs
+  car = Car.find(params[:id])
+
+  # find existing spec sheet or build new one for this car
+  spec = car.car_spec || car.build_car_spec
+
+  if spec.update(spec_params)
+    render json: { message: "Car specs updated successfully", car_spec: spec }, status: :ok
+  else
+    render json: { errors: spec.errors.full_messages }, status: :unprocessable_entity
+  end
+end
+
+def clear_specs
+  car = Car.find(params[:id])
+  spec = car.car_spec
+
+  unless spec
+    return render json: { error: "No specs found for this car" }, status: :not_found
+  end
+
+   # Build a hash of all spec fields set to nil
+   cleared_data = CarSpec.column_names.select { |col| col.end_with?("_id") || col == "thermostat_id" }.index_with { nil }
+
+  if spec.update(cleared_data)
+    render json: { message: "Spec sheet cleared successfully", car_spec: spec }, status: :ok
+  else
+    render json: { errors: spec.errors.full_messages }, status: :unprocessable_entity
+  end
+end
 
 
   private
@@ -95,5 +127,31 @@ class Api::CarsController < ApplicationController
     params.require(:car).permit(
       :vin, :make, :model, :year, :trim, :color, :mileage, :notes
       )
+  end
+
+  def spec_params
+    params.require(:car_spec).permit(
+    :engine_oil_viscosity_id,
+    :engine_oil_quantity_id,
+    :engine_oil_filter_id,
+    :brake_fluid_type_id,
+    :brake_pad_id,
+    :brake_rotor_id,
+    :tire_size_id,
+    :tire_brand_id,
+    :transmission_fluid_type_id,
+    :transmission_fluid_quantity_id,
+    :coolant_type_id,
+    :engine_air_filter_id,
+    :cabin_air_filter_id,
+    :wiper_blade_size_id,
+    :headlight_id,
+    :taillight_id,
+    :turn_signal_light_id,
+    :license_plate_light_id,
+    :battery_id,
+    :serpentine_belt_id,
+    :thermostat_id
+    )
   end
 end
