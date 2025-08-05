@@ -98,7 +98,8 @@ def update_specs
   if spec.update(spec_params)
     render json: { message: "Car specs updated successfully", car_spec: spec }, status: :ok
   else
-    render json: { errors: spec.errors.full_messages }, status: :unprocessable_entity
+     Rails.logger.error "SPEC UPDATE FAILED for Car ##{car.id}: #{spec.errors.full_messages.join(", ")}"
+      render json: { errors: spec.errors.full_messages, params: spec_params }, status: :unprocessable_entity
   end
 end
 
