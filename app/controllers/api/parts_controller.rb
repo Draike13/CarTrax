@@ -60,7 +60,7 @@ class Api::PartsController < ApplicationController
       "timing chain" => Parts::TimingChain,
       "timing sprocket" => Parts::TimingSprocket,
       "timing tensioner" => Parts::TimingTensioner,
-      "tire brand" => Parts::TireBrand,
+      "tire type" => Parts::TireType,
       "tire size" => Parts::TireSize,
       "transmission fluid quantity" => Parts::TransmissionFluidQuantity,
       "transmission fluid type" => Parts::TransmissionFluidType,
