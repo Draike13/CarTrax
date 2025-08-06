@@ -8,7 +8,7 @@ class CarSpec < ApplicationRecord
   belongs_to :brake_pad, optional: true, class_name: "Parts::BrakePad"
   belongs_to :brake_rotor, optional: true, class_name: "Parts::BrakeRotor"
   belongs_to :tire_size, optional: true, class_name: "Parts::TireSize"
-  belongs_to :tire_brand, optional: true, class_name: "Parts::TireBrand"
+  belongs_to :tire_type, optional: true, class_name: "Parts::TireType"
   belongs_to :transmission_fluid_type, optional: true, class_name: "Parts::TransmissionFluidType"
   belongs_to :transmission_fluid_quantity, optional: true, class_name: "Parts::TransmissionFluidQuantity"
   belongs_to :coolant_type, optional: true, class_name: "Parts::CoolantType"
