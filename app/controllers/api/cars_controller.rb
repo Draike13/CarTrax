@@ -4,14 +4,69 @@ class Api::CarsController < ApplicationController
     render json: cars
   end
 
-  def show
-    car = Car.find(params[:id])
-    if params[:with] == "specs"
-    render json: car.as_json(include: :car_spec)
-    else
-      render json: car
-    end
+def show
+  # Eager-load all associations to avoid N+1 queries
+  car = Car.includes(
+    car_spec: [
+      :engine_oil_viscosity,
+      :engine_oil_quantity,
+      :engine_oil_filter,
+      :brake_fluid_type,
+      :brake_pad,
+      :brake_rotor,
+      :tire_size,
+      :tire_brand,
+      :transmission_fluid_type,
+      :transmission_fluid_quantity,
+      :coolant_type,
+      :engine_air_filter,
+      :cabin_air_filter,
+      :wiper_blade_size,
+      :headlight,
+      :taillight,
+      :turn_signal_light,
+      :license_plate_light,
+      :battery,
+      :serpentine_belt,
+      :thermostat
+    ]
+  ).find(params[:id])
+
+  if params[:with] == "specs"
+    render json: car.as_json(
+      include: {
+        car_spec: {
+          include: {
+            engine_oil_viscosity: { only: [ :id, :data ] },
+            engine_oil_quantity: { only: [ :id, :data ] },
+            engine_oil_filter: { only: [ :id, :data ] },
+            brake_fluid_type: { only: [ :id, :data ] },
+            brake_pad: { only: [ :id, :data ] },
+            brake_rotor: { only: [ :id, :data ] },
+            tire_size: { only: [ :id, :data ] },
+            tire_brand: { only: [ :id, :data ] },
+            transmission_fluid_type: { only: [ :id, :data ] },
+            transmission_fluid_quantity: { only: [ :id, :data ] },
+            coolant_type: { only: [ :id, :data ] },
+            engine_air_filter: { only: [ :id, :data ] },
+            cabin_air_filter: { only: [ :id, :data ] },
+            wiper_blade_size: { only: [ :id, :data ] },
+            headlight: { only: [ :id, :data ] },
+            taillight: { only: [ :id, :data ] },
+            turn_signal_light: { only: [ :id, :data ] },
+            license_plate_light: { only: [ :id, :data ] },
+            battery: { only: [ :id, :data ] },
+            serpentine_belt: { only: [ :id, :data ] },
+            thermostat: { only: [ :id, :data ] }
+          }
+        }
+      }
+    )
+  else
+    render json: car
   end
+end
+
 
   def search_by_vin
     vin = params[:vin].strip.upcase
