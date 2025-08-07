@@ -1,8 +1,15 @@
 class Api::CarsController < ApplicationController
-  def index
-    cars = Car.all
+def index
+  cars = Car.all
+
+  if params[:with] == "specs"
+    cars = cars.includes(:car_spec)
+    render json: cars.as_json(include: :car_spec)
+  else
     render json: cars
   end
+end
+
 
 def show
   # Eager-load all associations to avoid N+1 queries
